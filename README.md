@@ -52,7 +52,7 @@ Other measured facts:
 
 ## 本轮创新
 
-**B 档。** 首次把「端点保持的全局最小关键帧数 DP」用在 glTF translation / scale / morph-weight 轨道上，并把「连续时间最大误差 == 原关键帧最大误差」写成可复算的证书；浏览器拖动容差时用同一个 `src/core.mjs` 现场重算关键帧数、误差和 FNV 计划哈希，在默认容差下必须与 node 烘焙值逐位相等。与 glTF-Transform 的 `resample`、Blender 的 decimate 等启发式不同，这里给出的是该模型下可被暴力枚举复核的最小关键帧数，而不是「看起来差不多」；我们**不声称发明 DP**，只声称这个组合与证书此前没有在本团队/该场景落地。台账中最近的动画相关条目只涉及 SVG 关键帧时间线，不涉及 glTF 平移轨道或最优关键帧数。
+**B 档。** 把「端点保持的全局最小关键帧数 DP」用在 glTF translation / scale / morph-weight 轨道上，并把「连续时间最大误差 == 原关键帧最大误差」写成可复算的证书；浏览器拖动容差时用同一个 `src/core.mjs` 现场重算关键帧数、误差和 FNV 计划哈希，在默认容差下必须与 node 烘焙值逐位相等。与 glTF-Transform 的 `resample`、Blender 的 decimate 等启发式不同，这里给出的是该模型下可被暴力枚举复核的最小关键帧数，而不是「看起来差不多」；我们**不声称发明 DP**，只声称这个组合与证书此前没有在本团队/该场景落地。台账中最近的动画相关条目只涉及 SVG 关键帧时间线，不涉及 glTF 平移轨道或最优关键帧数。
 
 ## Known limitations
 
