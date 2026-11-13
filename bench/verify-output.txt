@@ -1,0 +1,72 @@
+PASS  dataset.tracks  tracks=6
+PASS  dataset.keys  n=257
+PASS  dataset.fps  fps=30
+PASS  dataset.totalKeys  total=1542
+PASS  planHash.matchesReference  node=87a1c3e6 ref=87a1c3e6
+PASS  summary.outputKeys  node=414 ref=414
+PASS  summary.inputKeys  input=1542
+PASS  summary.reductionPct  node=73.151751% ref=73.151751%
+PASS  summary.maxError  node=9.916595e-3 ref=9.916595e-3
+PASS  root-figure8.endpoints  kept=0..256
+PASS  root-figure8.errorWithinTolerance  maxError=9.916595e-3 tol=0.01
+PASS  root-figure8.countMatchesReference  node=222 ref=222
+PASS  root-figure8.errorMatchesReference  node=9.916595e-3 ref=9.916595e-3
+PASS  root-figure8.keptIndicesMatchReference  len=222
+PASS  root-figure8.continuousMatchesKeys  dense=9.916595e-3 keys=9.916595e-3 samples=1792
+PASS  root-figure8.uniformAtSameCountWorse  uniform=4.163216e-2 dp=9.916595e-3 keys=222
+PASS  root-figure8.uniformMinKeysNotBetter  uniform=257 dp=222
+PASS  hand-swing.endpoints  kept=0..256
+PASS  hand-swing.errorWithinTolerance  maxError=9.809795e-3 tol=0.01
+PASS  hand-swing.countMatchesReference  node=99 ref=99
+PASS  hand-swing.errorMatchesReference  node=9.809795e-3 ref=9.809795e-3
+PASS  hand-swing.keptIndicesMatchReference  len=99
+PASS  hand-swing.continuousMatchesKeys  dense=9.809795e-3 keys=9.809795e-3 samples=1792
+PASS  hand-swing.uniformAtSameCountWorse  uniform=1.804255e-2 dp=9.809795e-3 keys=99
+PASS  hand-swing.uniformMinKeysNotBetter  uniform=208 dp=99
+PASS  camera-dolly.endpoints  kept=0..256
+PASS  camera-dolly.errorWithinTolerance  maxError=9.626953e-3 tol=0.01
+PASS  camera-dolly.countMatchesReference  node=17 ref=17
+PASS  camera-dolly.errorMatchesReference  node=9.626953e-3 ref=9.626953e-3
+PASS  camera-dolly.keptIndicesMatchReference  len=17
+PASS  camera-dolly.continuousMatchesKeys  dense=9.626953e-3 keys=9.626953e-3 samples=1792
+PASS  camera-dolly.uniformAtSameCountWorse  uniform=1.847010e-2 dp=9.626953e-3 keys=17
+PASS  camera-dolly.uniformMinKeysNotBetter  uniform=194 dp=17
+PASS  loop-orbit.endpoints  kept=0..256
+PASS  loop-orbit.errorWithinTolerance  maxError=9.262810e-3 tol=0.01
+PASS  loop-orbit.countMatchesReference  node=30 ref=30
+PASS  loop-orbit.errorMatchesReference  node=9.262810e-3 ref=9.262810e-3
+PASS  loop-orbit.keptIndicesMatchReference  len=30
+PASS  loop-orbit.continuousMatchesKeys  dense=9.262810e-3 keys=9.262810e-3 samples=1792
+PASS  loop-orbit.uniformAtSameCountWorse  uniform=9.281292e-3 dp=9.262810e-3 keys=30
+PASS  loop-orbit.uniformMinKeysNotBetter  uniform=30 dp=30
+PASS  impact-decay.endpoints  kept=0..256
+PASS  impact-decay.errorWithinTolerance  maxError=9.648593e-3 tol=0.01
+PASS  impact-decay.countMatchesReference  node=31 ref=31
+PASS  impact-decay.errorMatchesReference  node=9.648593e-3 ref=9.648593e-3
+PASS  impact-decay.keptIndicesMatchReference  len=31
+PASS  impact-decay.continuousMatchesKeys  dense=9.648593e-3 keys=9.648593e-3 samples=1792
+PASS  impact-decay.uniformAtSameCountWorse  uniform=1.089143e-1 dp=9.648593e-3 keys=31
+PASS  impact-decay.uniformMinKeysNotBetter  uniform=122 dp=31
+PASS  morph-weight.endpoints  kept=0..256
+PASS  morph-weight.errorWithinTolerance  maxError=9.842179e-3 tol=0.01
+PASS  morph-weight.countMatchesReference  node=15 ref=15
+PASS  morph-weight.errorMatchesReference  node=9.842179e-3 ref=9.842179e-3
+PASS  morph-weight.keptIndicesMatchReference  len=15
+PASS  morph-weight.continuousMatchesKeys  dense=9.842179e-3 keys=9.842179e-3 samples=1792
+PASS  morph-weight.uniformAtSameCountWorse  uniform=8.848731e-2 dp=9.842179e-3 keys=15
+PASS  morph-weight.uniformMinKeysNotBetter  uniform=46 dp=15
+PASS  certificate.continuousAllWithinTolerance  certified=6/6
+PASS  uniform.sameCountViolations  violations=5/6, worst=impact-decay 10.891x tol
+PASS  uniform.worstRatio  max=10.891x tolerance (impact-decay)
+PASS  optimality.bruteForce  48/48 exact min-count matches
+PASS  edge.constantTrack  keys=2 err=0
+PASS  edge.linearTrack  keys=2 err=0
+PASS  edge.invalidInputsThrow  threw=4/4
+PASS  scaleInvariance.planIndices  bad=0, scales=5 x tracks=6
+PASS  loop.seamClosed  max endpoint delta=0
+PASS  loop.planEndpointsEqual  max eval delta=0
+PASS  determinism.samePlan  hash=a15080b6
+PASS  purity.noBrowserOrThree  no forbidden tokens outside comments
+PASS  uniformIndices.valid  got=[0,2,4]
+
+70 passed / 0 failed

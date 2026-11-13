@@ -1,0 +1,219 @@
+{
+  "schema": "motion-prune-lab/bench/1",
+  "generatedAt": "2026-11-13T00:26:53.745Z",
+  "node": "v24.19.0",
+  "tolerance": 0.01,
+  "dataset": {
+    "tracks": 6,
+    "keysPerTrack": 257,
+    "inputKeys": 1542
+  },
+  "plans": [
+    {
+      "name": "root-figure8",
+      "dim": 3,
+      "inputKeys": 257,
+      "outputKeys": 222,
+      "maxError": 0.009916594782987478,
+      "worst": {
+        "sampleIndex": 66,
+        "segmentStart": 65,
+        "segmentEnd": 67,
+        "error": 0.009916594782987478
+      }
+    },
+    {
+      "name": "hand-swing",
+      "dim": 3,
+      "inputKeys": 257,
+      "outputKeys": 99,
+      "maxError": 0.009809795001936468,
+      "worst": {
+        "sampleIndex": 227,
+        "segmentStart": 225,
+        "segmentEnd": 228,
+        "error": 0.009809795001936468
+      }
+    },
+    {
+      "name": "camera-dolly",
+      "dim": 3,
+      "inputKeys": 257,
+      "outputKeys": 17,
+      "maxError": 0.009626952790291405,
+      "worst": {
+        "sampleIndex": 5,
+        "segmentStart": 2,
+        "segmentEnd": 9,
+        "error": 0.009626952790291405
+      }
+    },
+    {
+      "name": "loop-orbit",
+      "dim": 3,
+      "inputKeys": 257,
+      "outputKeys": 30,
+      "maxError": 0.009262810181684188,
+      "worst": {
+        "sampleIndex": 226,
+        "segmentStart": 221,
+        "segmentEnd": 230,
+        "error": 0.009262810181684188
+      }
+    },
+    {
+      "name": "impact-decay",
+      "dim": 1,
+      "inputKeys": 257,
+      "outputKeys": 31,
+      "maxError": 0.009648593392666688,
+      "worst": {
+        "sampleIndex": 31,
+        "segmentStart": 21,
+        "segmentEnd": 33,
+        "error": 0.009648593392666688
+      }
+    },
+    {
+      "name": "morph-weight",
+      "dim": 1,
+      "inputKeys": 257,
+      "outputKeys": 15,
+      "maxError": 0.009842178905478338,
+      "worst": {
+        "sampleIndex": 47,
+        "segmentStart": 42,
+        "segmentEnd": 65,
+        "error": 0.009842178905478338
+      }
+    }
+  ],
+  "summary": {
+    "tracks": 6,
+    "inputKeys": 1542,
+    "outputKeys": 414,
+    "reductionPct": 73.15175097276266,
+    "maxError": 0.009916594782987478,
+    "worst": {
+      "trackName": "root-figure8",
+      "sampleIndex": 66,
+      "segmentStart": 65,
+      "segmentEnd": 67,
+      "error": 0.009916594782987478
+    }
+  },
+  "planHash": "87a1c3e6",
+  "uniformSameCount": [
+    {
+      "name": "root-figure8",
+      "outputKeys": 222,
+      "maxError": 0.04163216347665942,
+      "ratioToTolerance": 4.163216347665942
+    },
+    {
+      "name": "hand-swing",
+      "outputKeys": 99,
+      "maxError": 0.018042550436618062,
+      "ratioToTolerance": 1.8042550436618061
+    },
+    {
+      "name": "camera-dolly",
+      "outputKeys": 17,
+      "maxError": 0.01847010119674087,
+      "ratioToTolerance": 1.847010119674087
+    },
+    {
+      "name": "loop-orbit",
+      "outputKeys": 30,
+      "maxError": 0.009281291954742804,
+      "ratioToTolerance": 0.9281291954742804
+    },
+    {
+      "name": "impact-decay",
+      "outputKeys": 31,
+      "maxError": 0.10891433609555556,
+      "ratioToTolerance": 10.891433609555556
+    },
+    {
+      "name": "morph-weight",
+      "outputKeys": 15,
+      "maxError": 0.08848730721500009,
+      "ratioToTolerance": 8.848730721500008
+    }
+  ],
+  "uniformSameCountViolations": 5,
+  "worstUniformRatioToTolerance": 10.891433609555556,
+  "uniformToTolerance": [
+    {
+      "name": "root-figure8",
+      "outputKeys": 257,
+      "maxError": 0
+    },
+    {
+      "name": "hand-swing",
+      "outputKeys": 208,
+      "maxError": 0.009764961949586457
+    },
+    {
+      "name": "camera-dolly",
+      "outputKeys": 194,
+      "maxError": 0.009879990772603119
+    },
+    {
+      "name": "loop-orbit",
+      "outputKeys": 30,
+      "maxError": 0.009281291954742804
+    },
+    {
+      "name": "impact-decay",
+      "outputKeys": 122,
+      "maxError": 0.00938088637866663
+    },
+    {
+      "name": "morph-weight",
+      "outputKeys": 46,
+      "maxError": 0.009351650691200142
+    }
+  ],
+  "timing": {
+    "unit": "ms",
+    "sampleCount": 7,
+    "coldMs": 137.43934900000002,
+    "warmupRuns": 1,
+    "samples": [
+      129.39221099999997,
+      129.34527299999996,
+      130.594511,
+      129.72551699999997,
+      142.39087800000004,
+      131.14370400000007,
+      129.35205599999995
+    ],
+    "min": 129.34527299999996,
+    "median": 129.72551699999997,
+    "p25": 129.35205599999995,
+    "p75": 131.14370400000007,
+    "p95": 142.39087800000004,
+    "stddev": 4.409538663539375,
+    "relativeStddevPct": 3.348008731849497,
+    "mean": 131.70630714285713,
+    "note": "one sample = simplifyTrack over all 6 tracks at tolerance 0.01"
+  },
+  "uniformTiming": {
+    "unit": "ms",
+    "sampleCount": 7,
+    "coldMs": 2.16581199999996,
+    "samples": [
+      0.2032120000001214,
+      0.2949549999998453,
+      0.4567890000000716,
+      0.36084699999992154,
+      0.19785200000001169,
+      0.17037099999993188,
+      0.19278299999996307
+    ],
+    "median": 0.2032120000001214,
+    "relativeStddevPct": 37.10920900117694,
+    "note": "independent uniform baseline at the same per-track key counts; it is much cheaper but fails the tolerance on 5/6 tracks"
+  }
+}

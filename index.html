@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Motion Prune Lab · certified keyframe pruning</title>
+  <style>
+    :root {
+      --bg: #070a10; --panel: #0d1420; --line: #1e2b3d; --text: #d7e2f0;
+      --muted: #7c8da5; --cyan: #37e0d0; --amber: #ffbf5a; --red: #ff6b7a;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); font: 14px/1.45 ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif; }
+    #app { display: grid; grid-template-columns: 1fr 390px; height: 100%; }
+    #stage { position: relative; min-width: 0; }
+    canvas { display: block; width: 100%; height: 100%; }
+    #caption { position: absolute; left: 22px; bottom: 18px; color: var(--muted); font-size: 12px; letter-spacing: .02em; }
+    #caption strong { color: var(--text); font-weight: 600; }
+    aside { border-left: 1px solid var(--line); background: linear-gradient(180deg, #0c1320, #080c14); overflow-y: auto; padding: 22px 20px 30px; }
+    h1 { font-size: 19px; line-height: 1.2; margin: 0 0 6px; letter-spacing: -.01em; }
+    .sub { color: var(--muted); font-size: 12px; margin-bottom: 18px; }
+    .badge { display: inline-flex; gap: 7px; align-items: center; border: 1px solid #204a48; background: #0c2624; color: var(--cyan); border-radius: 999px; padding: 5px 9px; font: 600 10px/1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .08em; text-transform: uppercase; }
+    .badge.warn { border-color: #5b4520; background: #2a1f0b; color: var(--amber); }
+    .badge .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; box-shadow: 0 0 12px currentColor; }
+    section { border-top: 1px solid var(--line); padding: 16px 0; }
+    .label { color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 9px; }
+    input[type="range"] { width: 100%; accent-color: var(--cyan); }
+    .range-row { display: flex; justify-content: space-between; align-items: baseline; margin-top: 6px; }
+    .range-row b { font: 700 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--cyan); }
+    .range-row span { color: var(--muted); font-size: 11px; }
+    .grid { display: grid; grid-template-columns: 1fr auto; gap: 7px 12px; font-size: 12px; }
+    .grid span { color: var(--muted); }
+    .grid b { font: 600 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; text-align: right; }
+    .big { font-size: 28px; line-height: 1; letter-spacing: -.04em; margin: 2px 0 5px; }
+    .big em { font-style: normal; color: var(--cyan); }
+    .bar { height: 7px; border-radius: 99px; background: #182333; overflow: hidden; margin: 9px 0 8px; }
+    .bar > i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #1d8f88, var(--cyan)); transition: width .18s ease; }
+    .hint { color: var(--muted); font-size: 11px; line-height: 1.55; }
+    .warnbox { border: 1px solid #4a3720; background: #21190d; color: #e8c58e; border-radius: 8px; padding: 9px 10px; font-size: 11px; line-height: 1.55; margin-top: 8px; }
+    .legend { display: flex; gap: 12px; flex-wrap: wrap; font-size: 11px; color: var(--muted); }
+    .legend i { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 5px; vertical-align: 1px; }
+    @media (max-width: 860px) { #app { grid-template-columns: 1fr; grid-template-rows: 55vh 1fr; } aside { border-left: 0; border-top: 1px solid var(--line); } }
+  </style>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="app">
+    <main id="stage">
+      <div id="caption"><strong>Drag to orbit · wheel to zoom.</strong> Grey = every source key. Bright = certified plan. Moving dots = reconstructed playback.</div>
+    </main>
+    <aside>
+      <h1>Motion Prune Lab</h1>
+      <div class="sub">Exact minimum keyframe count for piecewise-linear glTF tracks, with a continuous-time error certificate.</div>
+      <div id="status" class="badge"><span class="dot"></span><span id="statusText">LOADING</span></div>
+
+      <section>
+        <div class="label">Error tolerance (world units / weight)</div>
+        <input id="tol" type="range" min="0.001" max="0.08" step="0.001" value="0.01" aria-label="Error tolerance" />
+        <div class="range-row"><b id="tolValue">0.010</b><span>absolute units</span></div>
+        <div class="hint" id="tolHint">The plan is the global minimum number of keys whose straight segments stay within this tolerance at every source key.</div>
+      </section>
+
+      <section>
+        <div class="label">Certified plan</div>
+        <div class="big"><em id="outKeys">—</em> <span style="font-size:13px;color:var(--muted);font-weight:400">/ <span id="inKeys">—</span> keys</span></div>
+        <div class="bar"><i id="bar"></i></div>
+        <div class="grid">
+          <span>keys removed</span><b id="reduction">—</b>
+          <span>max reconstruction error</span><b id="maxError">—</b>
+          <span>worst track</span><b id="worstTrack">—</b>
+          <span>plan hash</span><b id="hash">—</b>
+          <span>continuous recheck</span><b id="dense">—</b>
+        </div>
+      </section>
+
+      <section>
+        <div class="label">Same payload, uniform sampling</div>
+        <div class="grid">
+          <span>tracks over tolerance</span><b id="violations">—</b>
+          <span>worst error / tolerance</span><b id="worstRatio">—</b>
+        </div>
+        <div class="warnbox" id="uniformNote">Computing independent baseline…</div>
+      </section>
+
+      <section>
+        <div class="label">Node↔browser parity</div>
+        <div class="hint" id="parity">Reference is computed by <code>tools/gen-sample.mjs</code>; at 0.010 the live hash must match <code>data/reference.json</code>.</div>
+      </section>
+
+      <section>
+        <div class="label">Tracks</div>
+        <div class="legend" id="legend"></div>
+        <div class="hint" style="margin-top:9px">Translation, scale and morph-weight tracks only. Quaternion rotation tracks are deliberately out of scope.</div>
+      </section>
+    </aside>
+  </div>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
